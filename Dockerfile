@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir \
     -r requirements.txt
 
 COPY --chown=appuser:appuser app/app.py .
+RUN chown -R appuser /usr/local/lib/python3.14/site-packages
 USER appuser
 
 EXPOSE 8000
