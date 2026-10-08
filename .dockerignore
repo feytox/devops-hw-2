@@ -4,6 +4,6 @@
 **/__pycache__/
 backup/
 .dockerignore
-Dockerfile
+.dive-ci
 compose*.yaml
 nginx/

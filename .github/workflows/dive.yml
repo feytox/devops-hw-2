@@ -1,0 +1,25 @@
+name: dive
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  dive:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: notes-hw2-app:ci
+      DIVE_IMAGE: wagoodman/dive:v0.13.1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build app image
+        run: docker build -t "$IMAGE" .
+
+      - name: Check image with dive
+        run: |
+          docker run --rm \
+            -e CI=true \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "$PWD/.dive-ci:/.dive-ci:ro" \
+            "$DIVE_IMAGE" "$IMAGE" --ci-config /.dive-ci
